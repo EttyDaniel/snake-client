@@ -11,8 +11,17 @@ const connect = function() {
   });
 
   conn.on('connect', () => {
+    //sucessfully connecting to the server
     console.log("Successfully connected to game server");
+  });
+
+  conn.on('connect', () => {
+    //sending the server our name - 3 letters max
     conn.write('Name: EBD');
+    setInterval(() => {
+      conn.write('Move: up');
+    }, 50);
+    
   });
   //receives a message from the server and presents it on the screen
   conn.on('data', (data) => {
