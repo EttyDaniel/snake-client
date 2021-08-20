@@ -7,7 +7,6 @@ const connect = function() {
   const conn = net.createConnection({ 
     host: 'localhost',
     port: 50541
-
   });
 
   conn.on('connect', () => {
@@ -20,7 +19,7 @@ const connect = function() {
     conn.write('Name: EBD');
     setInterval(() => {
       conn.write('Move: up');
-    }, 50);
+    }, 1500);
     
   });
   //receives a message from the server and presents it on the screen
