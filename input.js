@@ -41,7 +41,7 @@ const handleUserInput = function(key) {
   stdin.setEncoding('utf8');
   stdin.resume();
   stdin.on('data', (key) => {
-      handleUserInput(key);
+    handleUserInput(key);
   });
 
   return stdin;
