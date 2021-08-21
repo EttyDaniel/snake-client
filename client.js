@@ -6,8 +6,8 @@ const { IP, PORT } = require('./constants');
  */
 const connect = function() {
   const conn = net.createConnection({ 
-    host:'localhost',
-    port:50541
+    host:IP,
+    port:PORT
   });
 
   conn.on('connect', () => {
@@ -26,7 +26,24 @@ const connect = function() {
   //receives a message from the server and presents it on the screen
   conn.on('data', (data) => {
     console.log('Server says: ', data);
+
+    // In case the server informs that we've crashed we close the
+    // connection on our end as well to avoid sending data after
+    // the socket has been closed
+    if (data.includes("you crashed"))
+    {
+      conn.end();
+      process.exit();
+    }
   });
+
+  // end the connection and exit the process when dealing with an error event
+  conn.on('error', (error) => {
+    console.log('Server error: ', error)
+    conn.end();
+    process.exit();
+  })
+
   // interpret incoming data as text
   conn.setEncoding('utf8'); 
 
